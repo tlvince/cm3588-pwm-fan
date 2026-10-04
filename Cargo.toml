@@ -1,0 +1,10 @@
+[package]
+name = "cm3588-nvme-fan"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+description = "Minimal NVMe-first PWM fan controller for the CM3588 NAS (nvme-fan pwm-fan hwmon)"
+license = "MIT"
+
+[profile.release]
+strip = true
