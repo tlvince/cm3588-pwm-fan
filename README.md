@@ -2,6 +2,11 @@
 
 Quiet NVMe cooling for [FriendlyELEC CM3588 NAS](https://www.friendlyelec.com/index.php?route=product/product&product_id=299) (RK3588) on NixOS. [Noctua NF-A8 5V PWM](https://www.noctua.at/en/products/nf-a8-5v-pwm/) on GPIO 4-wire PWM + separate kernel `nvme-fan` + minimal Rust daemon (`cm3588-nvme-fan`)
 
+<div style="display: flex; flex-direction: row;">
+<a href="https://github.com/user-attachments/assets/73f91a19-4e1d-47bd-a2a6-1f455fa72a76"><img width="400" alt="fan" src="https://github.com/user-attachments/assets/73f91a19-4e1d-47bd-a2a6-1f455fa72a76" /></a>
+<a href="https://github.com/user-attachments/assets/58fb67b7-5c95-447b-ae65-501ee3551a55"><img width="400" alt="gpio" src="https://github.com/user-attachments/assets/58fb67b7-5c95-447b-ae65-501ee3551a55" /></a>
+</div>
+
 ## Why this exists
 
 - CM3588 Plus (16GB LPDDR5) in [metal case](https://www.amazon.co.uk/FriendlyELEC-Metal-Case-Custom-Made-Only/dp/B0F1LNW7WX). NVMe observed ~50°C idle, up to ~90°C under load
