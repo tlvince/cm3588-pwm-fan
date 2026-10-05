@@ -90,6 +90,7 @@ Std-only Rust, sysfs only. No `nvme-cli`, Python, etc
 - NVMe: `nvme` hwmon, Composite preferred, else lowest `tempN_input`. Hottest wins. SoC: `package-thermal` second. Sanity −40…150°C
 - Curves: NVMe `<40:0, 40:1, 45:2, 50:3, 55:4, 60:5`; SoC `<55:0, 55:1, 60:2, 65:3, 70:4, 75:5`; `desired=max()`. Up immediate, 5°C down-hysteresis. `poll 5s / settle 5s` (SSD mass is slow; SoC framework already polls 1s)
 - Failsafe → state 5 on: 2× 0 RPM, 3× tach errors, any sensor read fail that iteration, all inputs gone, `pwm1` read fail. Write fail → `write_failsafe_or_exit()` → exit for systemd restart. Absent drives = gone
+- Service (`module.nix`): rootless `nvme-fan` system user; udev `RUN+=` chgrp/chmod `0664` on `pwm1` (GROUP=/MODE= can't touch sysfs — `/dev` nodes only), matched by `pwmfan` + `OF_NAME=nvme-fan`, ordered after `systemd-udev-settle`. `ProtectSystem=strict`, `/sys` RO except `hwmon` RW, `NoNewPrivileges`, `@system-service`, `AF_UNIX`-only, empty caps. No `DynamicUser` (ephemeral UID vs static group), no `ProtectKernelTunables` (would RO `/sys`)
 
 ## Results
 
