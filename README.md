@@ -88,7 +88,7 @@ Std-only Rust, sysfs only. No `nvme-cli`, Python, etc
 - Discovery: `hwmon` with `name=="pwmfan" + fan1_input + pwm1 + of_node==nvme-fan` (canonical-path fallback). Ambiguous → refuse. Never hard-code `hwmonN`
 - Writes `pwm1` to `[30 50 75 100 150 255]`; kernel syncs cooling state. Compares raw PWM so external `49` normalizes to `30`
 - NVMe: `nvme` hwmon, Composite preferred, else lowest `tempN_input`. Hottest wins. SoC: `package-thermal` second. Sanity −40…150°C
-- Curves: NVMe `<42:0, 42:1, 45:2, 50:3, 55:4, 60:5`; SoC `<55:0, 55:1, 60:2, 65:3, 70:4, 75:5`; `desired=max()`. Up immediate, 2°C down-hysteresis. `poll 5s / settle 5s` (SSD mass is slow; SoC framework already polls 1s)
+- Curves: NVMe `<40:0, 40:1, 45:2, 50:3, 55:4, 60:5`; SoC `<55:0, 55:1, 60:2, 65:3, 70:4, 75:5`; `desired=max()`. Up immediate, 5°C down-hysteresis. `poll 5s / settle 5s` (SSD mass is slow; SoC framework already polls 1s)
 - Failsafe → state 5 on: 2× 0 RPM, 3× tach errors, any sensor read fail that iteration, all inputs gone, `pwm1` read fail. Write fail → `write_failsafe_or_exit()` → exit for systemd restart. Absent drives = gone
 
 ## Results

@@ -16,7 +16,7 @@
 //!
 //! Policy: the hottest NVMe composite temperature drives an aggressive curve,
 //! SoC `package-thermal` drives a laxer curve; `desired = max(both)` with
-//! ~2 C of down-hysteresis. Tachometer stall -> demand state 5 and log.
+//! ~5 C of down-hysteresis. Tachometer stall -> demand state 5 and log.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -37,11 +37,11 @@ struct Config {
 }
 
 const CONFIG: Config = Config {
-    // <42 -> 0, 42 -> 1, 45 -> 2, 50 -> 3, 55 -> 4, 60 -> 5
-    nvme_thresholds_mdec: [42_000, 45_000, 50_000, 55_000, 60_000],
+    // <40 -> 0, 40 -> 1, 45 -> 2, 50 -> 3, 55 -> 4, 60 -> 5
+    nvme_thresholds_mdec: [40_000, 45_000, 50_000, 55_000, 60_000],
     // <55 -> 0, 55 -> 1, 60 -> 2, 65 -> 3, 70 -> 4, 75 -> 5
     soc_thresholds_mdec: [55_000, 60_000, 65_000, 70_000, 75_000],
-    hysteresis_mdec: 2_000,
+    hysteresis_mdec: 5_000,
     poll_secs: 5,
     settle_secs: 5,
 };
